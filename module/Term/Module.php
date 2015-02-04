@@ -4,8 +4,8 @@ namespace Term;
 
 use Zend\ModuleManager\Feature\AutoloaderProviderInterface;
 use Zend\ModuleManager\Feature\ConfigProviderInterface;
-use Album\Model\Term;
-use Album\Model\TermTable;
+use Term\Model\Term;
+use Term\Model\TermTable;
 use Zend\Db\ResultSet\ResultSet;
 use Zend\Db\TableGateway\TableGateway;
 

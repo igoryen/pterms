@@ -9,7 +9,7 @@ return array(
   
   'router' => array(
     'routes' => array(
-      'album' => array(
+      'term' => array(
         'type' => 'segment',
         'options' => array(
           'route' => '/term[/:action][/:id]',
@@ -28,7 +28,7 @@ return array(
   
   'view_manager' => array(
     'template_path_stack' => array(
-      'album' => __DIR__ . '/../view',
+      'term' => __DIR__ . '/../view',
     ),
   ),
 );
