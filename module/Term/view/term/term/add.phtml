@@ -1,0 +1,28 @@
+<?php
+
+$title = 'Add new term';
+$this->headTitle($title);
+?>
+<h1><?php echo $this->escapeHtml($title); ?></h1>
+<?php
+$form->setAttribute('action', $this->url('term', array('action' => 'add')));
+$form->prepare();
+
+echo $this->form()->openTag($form);
+echo $this->formHidden($form->get('id'));
+
+echo $this->formRow($form->get('abbreviation'));
+echo "<br>";
+echo $this->formRow($form->get('standsfor'));
+echo "<br>";
+echo $this->formRow($form->get('explanation'));
+echo "<br>";
+echo $this->formRow($form->get('example'));
+echo "<br>";
+echo $this->formRow($form->get('link'));
+echo "<br>";
+
+//echo $this->formCollection($form);
+
+echo $this->formSubmit($form->get('submit'));
+echo $this->form()->closeTag();
