@@ -39,7 +39,46 @@ class TermController extends AbstractActionController {
   }
 
   public function editAction() {
-    
+    $id = (int) $this->params()->fromRoute('id', 0);
+    if (!$id) {
+      return $this
+              ->redirect()
+              ->toRoute('term', array(
+                'action' => 'add'
+      ));
+    }
+
+    // Get the Term with the specified id.  An exception is thrown
+    // if it cannot be found, in which case go to the index page.
+    try {
+      $term = $this->getTermTable()->getTerm($id);
+    } catch (\Exception $ex) {
+      return $this->redirect()->toRoute('term', array(
+                'action' => 'index'
+      ));
+    }
+
+    $form = new TermForm();
+    $form->bind($term);
+    $form->get('submit')->setAttribute('value', 'Edit');
+
+    $request = $this->getRequest();
+    if ($request->isPost()) {
+      $form->setInputFilter($term->getInputFilter());
+      $form->setData($request->getPost());
+
+      if ($form->isValid()) {
+        $this->getTermTable()->saveTerm($term);
+
+        // Redirect to list of terms
+        return $this->redirect()->toRoute('term');
+      }
+    }
+
+    return array(
+      'id' => $id,
+      'form' => $form,
+    );
   }
 
   public function deleteAction() {
