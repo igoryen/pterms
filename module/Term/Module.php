@@ -4,6 +4,10 @@ namespace Term;
 
 use Zend\ModuleManager\Feature\AutoloaderProviderInterface;
 use Zend\ModuleManager\Feature\ConfigProviderInterface;
+use Album\Model\Term;
+use Album\Model\TermTable;
+use Zend\Db\ResultSet\ResultSet;
+use Zend\Db\TableGateway\TableGateway;
 
 class Module implements AutoloaderProviderInterface, ConfigProviderInterface {
 
@@ -22,6 +26,24 @@ class Module implements AutoloaderProviderInterface, ConfigProviderInterface {
 
   public function getConfig() {
     return include __DIR__ . '/config/module.config.php';
+  }
+
+  public function getServiceConfig() {
+    return array(
+      'factories' => array(
+        'Term\Model\TermTable' => function($sm) {
+          $tableGateway = $sm->get('TermTableGateway');
+          $table = new TermTable($tableGateway);
+          return $table;
+        },
+        'TermTableGateway' => function ($sm) {
+          $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+          $resultSetPrototype = new ResultSet();
+          $resultSetPrototype->setArrayObjectPrototype(new Term());
+          return new TableGateway('term', $dbAdapter, null, $resultSetPrototype);
+        },
+      ),
+    );
   }
 
 }
