@@ -82,7 +82,28 @@ class TermController extends AbstractActionController {
   }
 
   public function deleteAction() {
-    
+    $id = (int) $this->params()->fromRoute('id', 0);
+    if (!$id) {
+      return $this->redirect()->toRoute('term');
+    }
+
+    $request = $this->getRequest();
+    if ($request->isPost()) {
+      $del = $request->getPost('del', 'No');
+
+      if ($del == 'Yes') {
+        $id = (int) $request->getPost('id');
+        $this->getTermTable()->deleteTerm($id);
+      }
+
+      // Redirect to list of terms
+      return $this->redirect()->toRoute('term');
+    }
+
+    return array(
+      'id' => $id,
+      'term' => $this->getTermTable()->getTerm($id)
+    );
   }
 
   public function getTermTable() {
