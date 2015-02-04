@@ -24,6 +24,10 @@ class Term {
     $this->link = (!empty($data['link'])) ? $data['link'] : null;
   }
   
+  public function getArrayCopy() {
+    return get_object_vars($this);
+  }
+
   public function setInputFilter(InputFilterInterface $inputFilter) {
     throw new \Exception("Not used");
   }
