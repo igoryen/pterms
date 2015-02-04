@@ -1,0 +1,57 @@
+<?php
+// module/Album/view/album/album/index.phtml:
+
+$title = 'Programming Terms';
+$this->headTitle($title);
+?>
+<h1>
+  <?php 
+  echo $this->escapeHtml($title); 
+  ?>
+</h1>
+
+<p>
+  <a href="<?php echo $this->url('term', array('action' => 'add')); ?>">
+    Add new term
+  </a>
+</p>
+
+<table class="table">
+  <tr>
+    <th>Abbreviation</th>
+    <th>Stands for</th>
+    <th>Explanation</th>
+    <th>Example</th>
+    <th>Link</th>
+    <th>&nbsp;</th>
+  </tr>
+  <?php foreach ($terms as $term) : ?>
+    <tr>
+      
+      <td><?php echo $this->escapeHtml($term->abbreviation); ?></td>
+      
+      <td><?php echo $this->escapeHtml($term->standsfor); ?></td>
+      
+      <td><?php echo $this->escapeHtml($album->explanation); ?></td>
+      
+      <td><?php echo $this->escapeHtml($album->example); ?></td>
+      
+      <td><?php echo $this->escapeHtml($album->link); ?></td>
+      
+      <td>
+        <a href="<?php 
+          echo $this->url('term', array(
+            'action' => 'edit', 
+            'id' => $term->id));
+        ?>">Edit</a>
+        
+        <a href="<?php 
+          echo $this->url('term', array(
+            'action' => 'delete', 
+            'id' => $term->id));
+        ?>">Delete</a>
+      </td>
+      
+    </tr>
+  <?php endforeach; ?>
+</table>

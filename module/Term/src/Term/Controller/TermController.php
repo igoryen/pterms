@@ -10,7 +10,9 @@ class TermController extends AbstractActionController {
   protected $termTable;
 
   public function indexAction() {
-    
+    return new ViewModel(array(
+      'terms' => $this->getTermTable()->fetchAll(),
+    ));
   }
 
   public function addAction() {
