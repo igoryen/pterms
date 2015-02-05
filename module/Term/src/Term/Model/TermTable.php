@@ -3,6 +3,10 @@
 namespace Term\Model;
 
 use Zend\Db\TableGateway\TableGateway;
+use Zend\Db\ResultSet\ResultSet;
+use Zend\Db\Sql\Select;
+use Zend\Paginator\Adapter\DbSelect;
+use Zend\Paginator\Paginator;
 
 class TermTable {
 
@@ -12,7 +16,25 @@ class TermTable {
     $this->tableGateway = $tableGateway;
   }
 
-  public function fetchAll() {
+  public function fetchAll($paginated = false) {
+    if ($paginated) {
+      // create a new Select object for the table term
+      $select = new Select('term');
+      // create a new result set based on the Term entity
+      $resultSetPrototype = new ResultSet();
+      $resultSetPrototype->setArrayObjectPrototype(new Term());
+      // create a new pagination adapter object
+      $paginatorAdapter = new DbSelect(
+              // our configured select object
+              $select,
+              // the adapter to run it against
+              $this->tableGateway->getAdapter(),
+              // the result set to hydrate
+              $resultSetPrototype
+      );
+      $paginator = new Paginator($paginatorAdapter);
+      return $paginator;
+    } // if paginated
     $resultSet = $this->tableGateway->select();
     return $resultSet;
   }
