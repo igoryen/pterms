@@ -16,8 +16,8 @@ class TermController extends AbstractActionController {
      $paginator = $this->getTermTable()->fetchAll(true);
      // set the current page to what has been passed in query string, or to 1 if none set
      $paginator->setCurrentPageNumber((int) $this->params()->fromQuery('page', 1));
-     // set the number of items per page to 10
-     $paginator->setItemCountPerPage(10);
+     // set the number of items per page to 50
+     $paginator->setItemCountPerPage(50);
     return new ViewModel(array(
       'paginator' => $paginator
     ));
