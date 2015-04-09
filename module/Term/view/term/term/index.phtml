@@ -36,7 +36,18 @@ $this->headTitle($title);
       
       <td><?php echo $this->escapeHtml($term->example); ?></td>
       
-      <td><?php echo $this->escapeHtml($term->link); ?></td>
+      <?php 
+      $link = $this->escapeHtml($term->link);
+      if(isset($link) && !empty($link)){ 
+        ?>
+        <td><a href="<?php echo $link; ?>" target="_blank">#</td>
+      <?php
+      }
+      else{?>
+        <td></td>
+      <?php
+      }?>
+      
       
       <td>
         <a href="<?php 
