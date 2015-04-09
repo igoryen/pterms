@@ -28,13 +28,13 @@ $this->headTitle($title);
   <?php foreach ($this->paginator as $term) : ?>
     <tr>
       
-      <td><?php echo $this->escapeHtml($term->abbreviation); ?></td>
+      <td style="font-family:Lucida Console, Monaco, monospace"><?php echo $this->escapeHtml($term->abbreviation); ?></td>
       
       <td><?php echo $this->escapeHtml($term->standsfor); ?></td>
       
       <td><?php echo $this->escapeHtml($term->explanation); ?></td>
       
-      <td><?php echo $this->escapeHtml($term->example); ?></td>
+      <td style="font-family:Lucida Console, Monaco, monospace"><?php echo $this->escapeHtml($term->example); ?></td>
       
       <?php 
       $link = $this->escapeHtml($term->link);
